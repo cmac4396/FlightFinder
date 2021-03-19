@@ -5,9 +5,9 @@ function formatDate(date) {
 
 // returns string that represents URL for searching for quotes 
 function getSearchURL(searchParam, origin, destination, outbound, inbound) {
-    if(origin == null || destination == null || outbound == null || inbound == null)
+    if (origin == null || destination == null || outbound == null || inbound == null)
         return "";
-    else 
+    else
         return "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0/"
             + searchParam.country + "/" + searchParam.currency + "/" + searchParam.locale + "/" + origin
             + "/" + destination + "/" + outbound + "?inboundpartialdate=" + inbound;
@@ -43,15 +43,15 @@ function priceSort(quotes, isAscending) {
 
     quotes.sort(function (a, b) {
         var result = 0;
-        if (a.MinPrice > b.MinPrice) 
+        if (a.MinPrice > b.MinPrice)
             result = 1;
         if (b.MinPrice > a.MinPrice)
             result = -1;
 
-        if(!isAscending) 
+        if (!isAscending)
             result = result * -1;
-        
-        return result; 
+
+        return result;
     })
 
     console.log(quotes);
@@ -60,7 +60,7 @@ function priceSort(quotes, isAscending) {
 
 // creates an HTML element for a top deal 
 function displayPreferredDeal(currencySymbol, flightData, index) {
-    var flightCard = '<div class="card preferred center">'
+    var flightCard = '<div class="card center">'
         + '<div class="card-body row">'
         + '<div class="col">'
         + '<p class="results">' + getCarrierName(flightData.Carriers, flightData.Quotes[index].OutboundLeg.CarrierIds[0]) + '</p>'

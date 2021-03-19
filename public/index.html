@@ -5,18 +5,18 @@
     <!-- CSS Stylesheets -->
     <!-- Bootstrap Stylesheet-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-    integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
     <!-- FlightFinder StyleSheet -->
     <link rel="stylesheet" href="css/styles.css">
-    
+
     <!-- JS Dependencies-->
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
         integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
         crossorigin="anonymous"></script>
-    
+
     <!-- Bootstrap -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
         integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
@@ -29,8 +29,8 @@
     <script>
         $(document).ready(function () {
             // set default locale, country, and currency 
-            var searchParam = { locale: defaultLocale, country: defaultCountry, currency: defaultCurrency, currencySymbol: defaultCurrencySymbol};
-            
+            var searchParam = { locale: defaultLocale, country: defaultCountry, currency: defaultCurrency, currencySymbol: defaultCurrencySymbol };
+
             var flightData = null;
             var settings = {
                 "async": true,
@@ -51,7 +51,7 @@
             $("#inboundPartialDate").val(formatDate(tomorrow));
 
             // EVENTS -----------------------------------------------------------------------------
-    
+
             // click search button 
             $("#search").click(function () {
                 // get the from data
@@ -69,7 +69,7 @@
 
                 $.ajax(settings).done(function (response) {
                     flightData = response;
-                    displayResults($("#results"), flightData, searchParam.currencySymbol, isAscending); 
+                    displayResults($("#results"), flightData, searchParam.currencySymbol, isAscending);
                 })
             });
 
@@ -100,7 +100,7 @@
             $("#sortByPrice").on("change", function () {
                 isAscending = $("#sortByPrice").val();
 
-                if(flightData != null)
+                if (flightData != null)
                     displayResults($("#results"), flightData, searchParam.currencySymbol, isAscending);
             });
 
@@ -134,7 +134,7 @@
             <ul id="originList" class="list-group"></ul>
             <input id="originPlaceId" name="originPlaceId" type="hidden" value=""></input>
         </div>
-    
+
         <div class="w-50">
             <label for="destinationPlace">To</label>
             <input id="destinationPlace" type="text" class="form-control" placeholder="Where to?">
@@ -171,8 +171,8 @@
 
     <div class="container" id="results"></div>
 
-    
-    
+
+
 </body>
 
 </html>
