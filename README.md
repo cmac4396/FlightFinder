@@ -22,7 +22,7 @@ event handlers, and Ajax calls.
 
 ## Getting Started 
 1. Download and install [Node.js](https://nodejs.org/en/). 
-2. Clone Flight Finder from LINK
+2. Clone Flight Finder using [this link](https://github.com/cmac4396/FlightFinder.git). 
 3. Go to the FlightFinder folder.
 4. Get all Node dependencies (use command below):
 ~~~
