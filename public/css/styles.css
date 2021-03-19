@@ -1,0 +1,23 @@
+
+h2 {
+    padding: 10px;
+}
+
+body {
+    background-image: url("../images/background2.jpeg");
+    color:white;
+}
+
+div {
+    padding: 10px 10px 10px 10px;
+}
+
+p.results {
+    color:black;
+}
+
+.center {
+    margin: auto;
+    width: 50%;
+  }
+

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- CSS Stylesheets -->
+    <!-- Bootstrap Stylesheet-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+    integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <!-- FlightFinder StyleSheet -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- JS Dependencies-->
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+    
+    <!-- Bootstrap -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
+
+    <!-- FlightFinder JS -->
+    <script src="js/constants.js"></script>
+    <script src="js/functions.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // set default locale, country, and currency 
+            var searchParam = { locale: defaultLocale, country: defaultCountry, currency: defaultCurrency, currencySymbol: defaultCurrencySymbol};
+            
+            var flightData = null;
+            var settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": "",
+                "method": "GET",
+                "headers": {
+                    "x-rapidapi-key": apiKey,
+                    "x-rapidapi-host": hostKey
+                }
+            };
+
+            // set default dates for departure and return to today and tomorrow 
+            var today = new Date();
+            var tomorrow = new Date(today.getTime() + (24 * 60 * 60 * 1000));
+
+            $("#outboundPartialDate").val(formatDate(today));
+            $("#inboundPartialDate").val(formatDate(tomorrow));
+
+            // EVENTS -----------------------------------------------------------------------------
+    
+            // click search button 
+            $("#search").click(function () {
+                // get the from data
+                var originPlaceId = $("#originPlaceId").val();
+                // get the to data
+                var destinationPlaceId = $("#destinationPlaceId").val();
+                // get the departure date
+                var outboundPartialDate = $("#outboundPartialDate").val();
+                // get the return date 
+                var inboundPartialDate = $("#outboundPartialDate").val();
+
+                var isAscending = $("#sortByPrice").val();
+
+                settings.url = getSearchURL(searchParam, originPlaceId, destinationPlaceId, outboundPartialDate, inboundPartialDate);
+
+                $.ajax(settings).done(function (response) {
+                    flightData = response;
+                    displayResults($("#results"), flightData, searchParam.currencySymbol, isAscending); 
+                })
+            });
+
+            // get recommended places for origin
+            $("#originPlace").keyup(function () {
+                addRecommendedPlaces($("#originPlace"), $("#originList"), settings, "originItem");
+            });
+            // get recommended places for destination
+            $("#destinationPlace").keyup(function () {
+                addRecommendedPlaces($("#destinationPlace"), $("#destinationList"), settings, "destinationItem");
+            });
+
+            // place chosen origin from recommended list into input field 
+            $("#originList").on("click", ".originItem", function () {
+                $("#originPlaceId").val(this.id);
+                $("#originPlace").val(this.innerText);
+                $("#originList").hide();
+            });
+
+            // place recommended destination into input field 
+            $("#destinationList").on("click", ".destinationItem", function () {
+                $("#destinationPlaceId").val(this.id);
+                $("#destinationPlace").val(this.innerText);
+                $("#destinationList").hide();
+            });
+
+            // drop down sort by price button 
+            $("#sortByPrice").on("change", function () {
+                isAscending = $("#sortByPrice").val();
+
+                if(flightData != null)
+                    displayResults($("#results"), flightData, searchParam.currencySymbol, isAscending);
+            });
+
+            // loads currency choices into currencySelect dropdown 
+            $("#currencySelect").on("click", loadRestCurrencies(settings, $("#currencySelect")));
+
+            // sets currency to selection from dropdown 
+            $("#currencySelect").on("change", function () {
+                searchParam.currency = $("#currencySelect").val();
+                searchParam.currencySymbol = $(this).children(":selected").attr("id");
+            });
+        });
+    </script>
+</head>
+<h2>Flight Finder</h2>
+
+<body>
+    <!-- currency select dropdown -->
+    <div class="form-group">
+        <label for="currencySelect">Currency</label>
+        <select class="form-control w-25" name="currencySelect" id="currencySelect">
+            <option id="$" value="USD">USD - $</option>
+        </select>
+    </div>
+
+    <!-- origin and destination input -->
+    <div class="input-group mb-2">
+        <div class="w-50">
+            <label for="originPlace">From</label>
+            <input id="originPlace" type="text" class="form-control" placeholder="Where from?">
+            <ul id="originList" class="list-group"></ul>
+            <input id="originPlaceId" name="originPlaceId" type="hidden" value=""></input>
+        </div>
+    
+        <div class="w-50">
+            <label for="destinationPlace">To</label>
+            <input id="destinationPlace" type="text" class="form-control" placeholder="Where to?">
+            <ul id="destinationList" class="list-group"></ul>
+            <input id="destinationPlaceId" name="destinationPlaceId" type="hidden" value=""></input>
+        </div>
+        <!-- hidden fields: ...PlaceId is the value used for search, 
+            ...Place is the value that the user sees  -->
+    </div>
+
+    <!-- departure and return date input -->
+    <div class="input-group mb-3">
+        <div>
+            <label for="outboundPartialDate">Depart</label>
+            <input id="outboundPartialDate" type="date" class="form-control">
+        </div>
+        <div>
+            <label for="inboundPartialDate">Return</label>
+            <input id="inboundPartialDate" type="date" class="form-control">
+        </div>
+    </div>
+
+    <div class="form-group" type="hidden">
+        <label for="sortByPrice">Sort By:</label>
+        <select class="form-control w-25" name="sortByPrice" id="sortByPrice">
+            <option value="true">Price: Low to High</option>
+            <option value="false">Price: High to Low</option>
+        </select>
+    </div>
+
+    <div>
+        <button id="search" class="btn btn-primary btn-lg searchButton">Search flights</button>
+    </div>
+
+    <div class="container" id="results"></div>
+
+    
+    
+</body>
+
+</html>

@@ -1,0 +1,16 @@
+{
+  "name": "flight-finder",
+  "version": "1.0.0",
+  "description": "This application allows users to view flight options based on departure and return dates and locations.",
+  "main": "app.js",
+  "scripts": {
+    "test": "qunit"
+  },
+  "author": "Candice Mac",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "qunit": "^2.14.1"
+  }
+}
