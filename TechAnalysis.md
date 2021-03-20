@@ -1,10 +1,5 @@
 # Technical Analysis 
 
-## Major Components 
-1. UI Layout and Style
-2. Events
-3. Functions 
-
 ## Design Decisions
 JQuery was used as the framework for JavaScript because it is beginner-friendly and provides sufficient functionality for a single-page web application. 
 <br>
@@ -12,7 +7,7 @@ JQuery was used as the framework for JavaScript because it is beginner-friendly 
 Bootstrap is a style and templating framework that was used to create a standardized UI layout. 
 <br>
 <br>
-JQuery was used to handle user events and process JavaScript functions. 
+JQuery was used to handle user events, perform Ajax calls to APIs, and process JavaScript functions. 
 
 ## Key Features 
 ### Autocomplete for Airport Locations
