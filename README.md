@@ -49,10 +49,18 @@ After clicking the search button, the results will be displayed in ascending pri
 
 ![](public/images/screenshots/Results.png)
 
-Note: Due to the limitations on the Skyscanner API, I was unable to find a result that appropriately displays starred and unstarred flight options. 
-
+Note: Due to the limitations on the Skyscanner API, I was unable to receive more than three entries in a result and properly show the starring functionality. 
 ## Technical Analysis 
 You can find an in-depth analysis of the application's architecture  [here](/TechAnalysis.md). 
+
+## File Structure
+| File Type | Location |
+|-----------|:---------|
+|HTML       | public   |
+|CSS        | public/css |
+| JavaScript | public/js |
+| QUnit Tests | public/js/test |
+<br>
 
 ## Resources 
 ### Skyscanner Flight Search API
