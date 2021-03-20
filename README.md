@@ -35,14 +35,24 @@ node app.js
 6. The app is now available at http://localhost:3000. 
 7. To view and execute tests, go to http://localhost:3000/test.html. 
 
-## File Structure
-| File Type | Location |
-|-----------|:---------|
-|HTML       | public   |
-|CSS        | public/css |
-| JavaScript | public/js |
-| QUnit Tests | public/js/test |
+## Navigating the App
+When you first open the app, the initial page allows users to search for available flights by filling out the form. The initial screen should look like this: 
 <br>
+
+![](public/images/screenshots/InitialScreen.png)
+
+When filling out the From and To fields, a list of suggesting locations will pop up. Clicking these locations will place them into their corresponding fields. 
+
+![](public/images/screenshots/Dropdown.png)
+
+After clicking the search button, the results will be displayed in ascending price order. The three cheapest price options are starred. The user can also choose to sort by price in descending order using the Sort By dropdown. 
+
+![](public/images/screenshots/Results.png)
+
+Note: Due to the limitations on the Skyscanner API, I was unable to find a result that appropriately displays starred and unstarred flight options. 
+
+## Technical Analysis 
+You can find an in-depth analysis of the application's architecture  [here](/TechAnalysis.md). 
 
 ## Resources 
 ### Skyscanner Flight Search API
