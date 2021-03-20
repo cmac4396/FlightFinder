@@ -41,7 +41,7 @@ When you first open the app, the initial page allows users to search for availab
 
 ![](public/images/screenshots/InitialScreen.png)
 
-When filling out the From and To fields, a list of suggesting locations will pop up. Clicking these locations will place them into their corresponding fields. 
+When filling out the From and To fields, a list of suggested locations will pop up. Clicking these locations will place them into their corresponding fields. 
 
 ![](public/images/screenshots/Dropdown.png)
 
